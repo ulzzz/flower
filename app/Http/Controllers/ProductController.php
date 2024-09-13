@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all();
+        return Product::orderBy('created_at', 'desc')->get();
     }
 
     public function store(Request $request)
@@ -21,11 +21,14 @@ class ProductController extends Controller
         $request->validate([
             'product_name' => 'required|string|max:255',
             'product_description' => 'nullable|string',
-            'quantity' => 'required|integer',
+            'quantity' => 'nullable|integer',
             'price' => 'required|numeric',
+            'status' => 'nullable|boolean',
         ]);
 
-        return Product::create($request->all());
+        $data = $request->all();
+        $data['status'] = $data['status'] ?? 1;
+        return Product::create($data);
     }
 
     public function show(Product $product)
@@ -38,7 +41,7 @@ class ProductController extends Controller
         $request->validate([
             'product_name' => 'sometimes|string|max:255',
             'product_description' => 'sometimes|string',
-            'quantity' => 'sometimes|integer',
+            'quantity' => 'integer',
             'price' => 'sometimes|numeric',
             'status' => 'sometimes|boolean',
         ]);

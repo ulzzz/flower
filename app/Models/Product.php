@@ -16,4 +16,7 @@ class Product extends Model
         'price',
         'status',
     ];
+    protected $attributes = [
+        'status' => 1,
+    ];
 }
