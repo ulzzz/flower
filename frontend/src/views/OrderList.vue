@@ -8,6 +8,7 @@
           <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Order ID</th>
           <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Product Name</th>
           <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Price</th>
+          <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -15,6 +16,14 @@
           <td class="py-3 px-4">{{ order.id }}</td>
           <td class="py-3 px-4 capitalize">{{ order.product_name }}</td>
           <td class="py-3 px-4">${{ order.price }}</td>
+          <td class="py-3 px-4">
+            <button
+              @click="deleteOrder(order.id)"
+              class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       </tbody>
       <tfoot class="bg-gray-100">
@@ -22,6 +31,7 @@
           <td class="py-3 px-4 font-semibold">Total Items: {{ totalItems }}</td>
           <td></td>
           <td class="py-3 px-4 font-semibold">Total Cost: ${{ totalCost.toFixed(2) }}</td>
+          <td></td>
         </tr>
       </tfoot>
     </table>
@@ -55,6 +65,17 @@ const fetchOrders = async () => {
     ordersWithProduct.value = await Promise.all(promises)
   } catch (error) {
     console.error('Error fetching orders or products:', error)
+  }
+}
+
+// Delete order
+const deleteOrder = async (orderId) => {
+  try {
+    await axios.delete(`${API_BASE_URL}/orders/${orderId}`)
+    // Remove the deleted order from the local list
+    ordersWithProduct.value = ordersWithProduct.value.filter((order) => order.id !== orderId)
+  } catch (error) {
+    console.error('Error deleting order:', error)
   }
 }
 
