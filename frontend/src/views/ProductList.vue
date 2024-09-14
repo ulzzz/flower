@@ -8,7 +8,7 @@
       </button>
 
       <button @click="showOrdersModal = true" class="bg-emerald-600 text-white px-10 py-2 rounded">
-        View Orders ({{ orders.length }})
+        View Cart ({{ orders.length }})
       </button>
     </div>
 
@@ -84,7 +84,7 @@
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import ProductCard from '@/components/ProductCard.vue'
-import OrdersModal from '@/components/OrdersModal.vue'
+import OrdersModal from '@/components/CartModal.vue'
 import { API_BASE_URL } from '@/config/config'
 
 const products = ref([])

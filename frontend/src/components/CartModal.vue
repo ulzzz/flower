@@ -4,7 +4,7 @@
     class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
   >
     <div class="bg-white rounded-lg p-4 w-96">
-      <h2 class="text-xl font-semibold">Order Items</h2>
+      <h2 class="text-xl font-semibold">Cart Items</h2>
       <ul class="my-2">
         <li
           v-for="(item, index) in groupedOrders"
